@@ -1,5 +1,9 @@
 import React from 'react';
 import apiService from '@/apiService';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Fab from '@material-ui/core/Fab';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 export default class LoginView extends React.Component {
     constructor(props) {
@@ -23,10 +27,10 @@ export default class LoginView extends React.Component {
                 password: this.state.password
             })
             .then(() => {
-                this.setState({ result: 'Пользователь успешно залогинился' });
+                this.setState({ result: 'Вход выполнен... Подождите.' });
                 setTimeout(() => this.redirectAfterLogin(), 2000);
             })
-            .catch(error => this.setState({ error: 'Ошибка' + error.response.data.error }));
+            .catch(error => this.setState({ error: 'Ошибка: ' + error.response.data.error }));
         e.preventDefault();
     }
 
@@ -41,34 +45,44 @@ export default class LoginView extends React.Component {
         const { error, result } = this.state;
 
         return (
-            <div className="login-view">
-                {error}
-                {result && <div className="result">{result}</div>}
-                <form onSubmit={e => this.handleSubmit(e)}>
-                    <div>
-                        <label>
-                            Никнейм:&nbsp;
-                            <input
-                                type="text"
+            <div>
+                <div className="login-view loginFields">
+                    <div style={{ fontFamily: 'Roboto', color: '#f44336' }}>{error}</div>
+                    {result && (
+                        <div className="result" style={{ fontFamily: 'Roboto', color: '#4CAF50' }}>
+                            {result}
+                        </div>
+                    )}
+                    <form onSubmit={e => this.handleSubmit(e)}>
+                        <div style={{ marginTop: '10px' }}>
+                            <TextField
                                 name="nickname"
-                                value={this.state.nickname}
+                                id="outlined-basic"
+                                label="Логин"
+                                variant="outlined"
+                                type="text"
                                 onChange={e => this.setState({ nickname: e.target.value })}
+                                value={this.state.nickname}
                             />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Пароль:&nbsp;
-                            <input
-                                type="password"
+                        </div>
+                        <div style={{ marginTop: '10px' }}>
+                            <TextField
                                 name="password"
-                                value={this.state.password}
+                                id="outlined-basic"
+                                label="Пароль"
+                                variant="outlined"
+                                type="password"
                                 onChange={e => this.setState({ password: e.target.value })}
+                                value={this.state.password}
                             />
-                        </label>
-                    </div>
-                    <button type="submit">Войти</button>
-                </form>
+                        </div>
+                        <div style={{ marginTop: '10px', textAlign: 'center' }}>
+                            <Fab color="primary" aria-label="add" type="submit">
+                                <ArrowForwardIcon />
+                            </Fab>
+                        </div>
+                    </form>
+                </div>
             </div>
         );
     }

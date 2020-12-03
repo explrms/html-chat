@@ -13,3 +13,19 @@ h1 {
 #additionalInfo {
     background-color: #0000ad;
 }
+
+.loginFields {
+    width: 300px; /*задаем ширину блока*/
+    height:100px; /*задаем высоту блока*/
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+}
+
+.center {
+    padding-top: 5px;
+    padding-bottom: 30px;
+    display: flex;
+}

@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 class ChatForm extends React.Component {
     constructor(props) {
@@ -41,34 +45,40 @@ class ChatForm extends React.Component {
 
         return (
             <>
-                <h4>Создание/редактирование чата</h4>
+                <div style={{ fontFamily: 'Roboto', color: '#283593' }}>
+                    <h1>Создание / редактирование чата</h1>
+                </div>
                 <form className="chat-form" onSubmit={e => this.handleSubmit(e)}>
                     <div>{error && <span style={{ color: 'red' }}>{error}</span>}</div>
                     <div>
-                        <label>
-                            Название чата:
-                            <input
-                                value={title}
-                                type="text"
-                                name="chat-title"
-                                onChange={event => this.setState({ title: event.target.value })}
-                            />
-                        </label>
+                        <TextField
+                            id="standard-basic"
+                            onChange={event => this.setState({ title: event.target.value })}
+                            label="Название чата"
+                            type="text"
+                            name="chat-title"
+                            value={title}
+                        />
                     </div>
                     <div>
-                        <label>
+                        <label style={{ fontFamily: 'Roboto' }}>
                             Приватный:
-                            <input
+                            <Checkbox
                                 type="checkbox"
-                                name="chat-title"
                                 checked={isPrivate}
                                 onChange={event =>
                                     this.setState({ isPrivate: event.target.checked })
                                 }
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
                             />
                         </label>
                     </div>
-                    <button type="submit">Сохранить</button>
+                    <div style={{ marginTop: '10px' }}>
+                        <Fab variant="extended" type="submit">
+                            <AddIcon />
+                            Создать
+                        </Fab>
+                    </div>
                 </form>
             </>
         );

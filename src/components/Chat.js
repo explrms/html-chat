@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
 /**
  * Компонент для отображения чата в списке чатов
@@ -22,9 +24,12 @@ class Chat extends React.Component {
                         {this.props.chat.title}
                     </a>
                     &nbsp;
-                    <button onClick={() => this.props.deleteHandler(this.props.chat.id)}>
-                        удалить
-                    </button>
+                    <IconButton
+                        aria-label="delete"
+                        onClick={() => this.props.deleteHandler(this.props.chat.id)}
+                    >
+                        <DeleteIcon fontSize="small" color="primary" />
+                    </IconButton>
                 </>
             );
         }
